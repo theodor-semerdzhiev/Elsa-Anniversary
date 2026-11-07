@@ -55,14 +55,18 @@ describe("asset URLs", () => {
   });
 });
 describe("configuration", () => {
-  it("accepts sample config", () =>
+  it("accepts the current anniversary config", () =>
     expect(validateConfig(anniversary)).toEqual([]));
   it("reports duplicate IDs, invalid dates and bad triggers", () => {
     const c = structuredClone(anniversary);
     c.photos.push(c.photos[0]);
     c.general.startDate = "bad";
     c.secrets[0].clicks = 0;
-    expect(validateConfig(c)).toHaveLength(3);
+    expect(validateConfig(c)).toEqual([
+      "Duplicate IDs in photos",
+      "Invalid date: bad",
+      "Secret clicks must be a positive integer",
+    ]);
   });
 });
 describe("sticker positions", () => {

@@ -15,7 +15,11 @@ export default defineConfig({
   },
   webServer: {
     command:
-      "npm run preview -- --host 127.0.0.1 --port 4173 --base /anniversary/",
+      "npm run build && npm run preview -- --host 127.0.0.1 --port 4173 --strictPort --base /anniversary/",
+    env: {
+      BASE_PATH: "/anniversary/",
+      SITE_URL: "https://example.com/anniversary/",
+    },
     url: "http://127.0.0.1:4173/anniversary/",
     reuseExistingServer: false,
   },
