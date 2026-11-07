@@ -1,3 +1,4 @@
+import { GiftSection } from "./components/GiftSection";
 import {
   useEffect,
   useRef,
@@ -388,6 +389,7 @@ export default function App({
                   {c.labels.replay}
                 </button>
               </motion.section>
+              {c.gift && <GiftSection gift={c.gift} />}
             </motion.div>
           )}
         </main>

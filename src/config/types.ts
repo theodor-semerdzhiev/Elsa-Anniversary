@@ -140,7 +140,16 @@ export interface Labels {
   postmarkTop: string;
   postmarkBottom: string;
 }
+export interface Gift {
+  heading: string;
+  introduction: string;
+  choiceLabel: string;
+  options: { id: string; symbol: string; title: string; description: string }[];
+  christmasNote: string;
+  selectionNote: string;
+}
 export interface AnniversaryConfig {
+  gift?: Gift;
   general: General;
   letter: Letter;
   photos: Photo[];

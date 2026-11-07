@@ -1310,3 +1310,103 @@ footer .text-button {
   overflow: hidden;
   z-index: -1;
 }
+
+.gift-section {
+  max-width: 900px;
+  padding-top: 10px;
+}
+.gift-ribbon {
+  display: block;
+  font-size: 45px;
+  color: var(--rose);
+  margin-bottom: 20px;
+}
+.gift-choices {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.gift-choices legend {
+  text-align: center;
+  width: 100%;
+  font-size: 20px;
+  margin-bottom: 28px;
+  color: var(--rose);
+}
+.gift-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+}
+.gift-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 35px 25px;
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+.gift-option:first-child {
+  transform: rotate(-2deg);
+}
+.gift-option:last-child {
+  transform: rotate(2deg);
+}
+.gift-option.chosen {
+  border-color: var(--rose);
+  transform: rotate(0);
+}
+.gift-option:focus-within {
+  outline: 2px solid var(--rose);
+  outline-offset: 5px;
+}
+.gift-option input {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 20px;
+  height: 20px;
+  accent-color: var(--rose);
+}
+.gift-symbol {
+  font-size: 48px;
+  color: var(--sage);
+  margin-bottom: 15px;
+}
+.gift-title {
+  font-family: var(--serif);
+  font-size: 27px;
+  margin-bottom: 15px;
+}
+.gift-description {
+  font-size: 13px;
+  line-height: 1.8;
+}
+.gift-christmas {
+  max-width: 580px;
+  margin: 40px auto 15px;
+  text-align: center;
+  color: var(--rose);
+  font-size: 21px;
+}
+.gift-selection-note {
+  text-align: center;
+  max-width: 480px;
+  margin: auto;
+  font-size: 12px;
+  min-height: 44px;
+}
+@media (max-width: 600px) {
+  .gift-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .gift-option {
+    padding: 30px 25px;
+  }
+}
