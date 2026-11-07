@@ -1410,3 +1410,120 @@ footer .text-button {
     padding: 30px 25px;
   }
 }
+
+/* Comfortable phone reading and touch controls, including landscape safe areas. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+.scrapbook {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+h1,
+h2,
+h3,
+p,
+.photo-title,
+.gift-title,
+.gift-description {
+  overflow-wrap: anywhere;
+}
+.photo-dialog {
+  overscroll-behavior: contain;
+}
+.modal-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  height: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+.modal-toolbar .modal-close {
+  position: relative;
+  top: 0;
+  right: 0;
+  flex: 0 0 44px;
+}
+@media (max-width: 767px) {
+  .chapter-nav {
+    gap: 4px 8px;
+  }
+  .chapter-nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  .hero-subtitle,
+  .chapter-header p,
+  .milestone p,
+  .gift-description,
+  .gift-selection-note,
+  .counter-paper > p:not(.hand) {
+    font-size: 14px;
+  }
+  .text-button {
+    font-size: 14px;
+  }
+  .letter-paper {
+    transform: none;
+  }
+  .calendar-count {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .photo-dialog {
+    width: calc(100% - 24px);
+    max-height: calc(
+      100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+    );
+  }
+  .modal-image {
+    height: clamp(160px, 44dvh, 420px);
+  }
+  .modal-paper {
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+  .modal-controls {
+    gap: 16px;
+  }
+  .gift-option {
+    transform: none !important;
+  }
+}
+@media (max-width: 600px) {
+  .polaroids {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0 18px;
+    gap: 40px;
+  }
+  .polaroid,
+  .polaroid:last-child:nth-child(odd),
+  .polaroid:nth-child(3n + 2) {
+    width: 100%;
+    max-width: 360px;
+    margin: 0;
+    justify-self: center;
+  }
+  .photo-title {
+    font-size: 23px;
+  }
+  .caption {
+    font-size: 14px;
+  }
+  .photo-date {
+    font-size: 11px;
+  }
+}
+@media (hover: none) {
+  .polaroid:hover {
+    transform: rotate(var(--rotation));
+  }
+  .envelope:hover {
+    transform: rotate(-6deg);
+  }
+}

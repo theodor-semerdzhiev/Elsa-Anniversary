@@ -88,14 +88,16 @@ export function Gallery({
           }}
         >
           <div className="modal-paper">
-            <button
-              className="icon-button modal-close"
-              onClick={() => setSelected(null)}
-              aria-label={labels.close}
-              autoFocus
-            >
-              <X />
-            </button>
+            <div className="modal-toolbar">
+              <button
+                className="icon-button modal-close"
+                onClick={() => setSelected(null)}
+                aria-label={labels.close}
+                autoFocus
+              >
+                <X />
+              </button>
+            </div>
             <div className="modal-image">
               <PhotoImage
                 path={photo.image}

@@ -209,3 +209,69 @@ test("gift choices are exclusive and reset on replay", async ({ page }) => {
   await page.locator(".envelope").click();
   await expect(page.locator("#gift input:checked")).toHaveCount(0);
 });
+
+for (const viewport of [
+  { width: 320, height: 568 },
+  { width: 480, height: 800 },
+  { width: 844, height: 390 },
+]) {
+  test(`phone touch flow at ${viewport.width}x${viewport.height}`, async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({
+      viewport,
+      isMobile: true,
+      hasTouch: true,
+      reducedMotion: "reduce",
+    });
+    const page = await context.newPage();
+    try {
+      await page.goto("http://127.0.0.1:4173/anniversary/");
+      await page.locator(".envelope").tap();
+      if (viewport.width < 768) {
+        const heights = await page
+          .locator(".chapter-nav a")
+          .evaluateAll((links) =>
+            links.map((link) => link.getBoundingClientRect().height),
+          );
+        expect(heights.every((height) => height >= 44)).toBe(true);
+      }
+      const cards = page.locator(".polaroid");
+      if (viewport.width <= 600) {
+        const first = (await cards.nth(0).boundingBox())!;
+        const second = (await cards.nth(1).boundingBox())!;
+        expect(second.y).toBeGreaterThan(first.y + first.height);
+      }
+      await cards.first().tap();
+      await page
+        .getByRole("button", { name: config.labels.next, exact: true })
+        .tap();
+      await expect(page.getByRole("dialog").getByRole("heading")).toHaveText(
+        config.photos[1].title,
+      );
+      await page.getByRole("dialog").evaluate((el) => {
+        el.scrollTop = el.scrollHeight;
+      });
+      const close = page.getByRole("button", {
+        name: config.labels.close,
+        exact: true,
+      });
+      const bounds = (await close.boundingBox())!;
+      expect(bounds.y).toBeGreaterThanOrEqual(0);
+      expect(bounds.y + bounds.height).toBeLessThanOrEqual(viewport.height);
+      await close.tap();
+      await expect(page.getByRole("dialog")).toHaveCount(0);
+      await page.locator(".gift-option").first().tap();
+      await expect(page.getByRole("radio").first()).toBeChecked();
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+      ).toBe(true);
+      if (viewport.width === 320)
+        await page.screenshot({ path: "test-results/gift-phone.png" });
+    } finally {
+      await context.close();
+    }
+  });
+}
