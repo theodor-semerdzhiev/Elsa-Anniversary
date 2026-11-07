@@ -161,7 +161,6 @@ export default function App({
           <span>
             {c.general.girlfriend} <i>&</i> {c.general.author}
           </span>
-          <span className="edition">{c.general.startDate.slice(0, 4)} — ∞</span>
         </header>
         <main key={edition}>
           <section id="beginning" className="opening">
